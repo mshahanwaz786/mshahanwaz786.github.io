@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Finder | Md Shahnawaz</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --blue: #1A56DB; --dark: #111827; --gray: #6B7280; --light: #F3F4F6; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #EFF6FF, #DBEAFE); min-height: 100vh; padding: 20px; }
+
+    .app { max-width: 800px; margin: 0 auto; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #1A56DB, #3B82F6);
+      border-radius: 20px 20px 0 0; padding: 32px 28px 28px; color: #fff;
+      box-shadow: 0 20px 60px rgba(26,86,219,0.15);
+    }
+    .header h1 { font-size: 28px; font-weight: 900; margin-bottom: 6px; }
+    .header p { font-size: 13px; opacity: 0.85; margin-bottom: 24px; }
+
+    .search-box {
+      background: #fff; border-radius: 12px; padding: 8px;
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .search-box input, .search-box select {
+      border: none; outline: none; padding: 10px 14px;
+      font-size: 14px; border-radius: 8px; font-family: inherit;
+    }
+    .search-box input { flex: 2; min-width: 140px; }
+    .search-box select { flex: 1; min-width: 110px; background: var(--light); color: var(--dark); }
+    .search-btn {
+      background: var(--blue); color: #fff; border: none;
+      padding: 10px 22px; border-radius: 8px; font-weight: 700;
+      font-size: 14px; cursor: pointer; transition: all 0.2s;
+    }
+    .search-btn:hover { background: #1440a8; }
+
+    /* BODY */
+    .body-area { background: #fff; border-radius: 0 0 20px 20px; padding: 24px 28px; box-shadow: 0 20px 60px rgba(26,86,219,0.1); }
+
+    .results-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .results-info span { font-size: 13px; color: var(--gray); font-weight: 600; }
+    .tab-row { display: flex; gap: 8px; }
+    .tab-btn {
+      padding: 6px 14px; border-radius: 20px; border: 2px solid #E5E7EB;
+      background: #fff; font-size: 12px; font-weight: 600; cursor: pointer;
+      color: var(--gray); transition: all 0.2s; font-family: inherit;
+    }
+    .tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* JOB CARD */
+    .job-card {
+      border: 1px solid #E5E7EB; border-radius: 14px; padding: 18px;
+      margin-bottom: 14px; transition: all 0.2s; animation: fadeIn 0.3s ease;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .job-card:hover { border-color: var(--blue); box-shadow: 0 8px 24px rgba(26,86,219,0.1); transform: translateY(-2px); }
+
+    .job-logo {
+      width: 50px; height: 50px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+
+    .job-info { flex: 1; min-width: 0; }
+    .job-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .job-title { font-size: 16px; font-weight: 800; color: var(--dark); }
+    .job-company { font-size: 13px; color: var(--gray); margin-top: 2px; }
+
+    .bookmark-btn {
+      border: none; background: none; font-size: 20px; cursor: pointer;
+      flex-shrink: 0; transition: transform 0.2s;
+    }
+    .bookmark-btn:hover { transform: scale(1.2); }
+
+    .job-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    .meta-tag {
+      font-size: 11px; background: var(--light); color: var(--gray);
+      padding: 4px 10px; border-radius: 6px; font-weight: 600;
+    }
+    .meta-tag.salary { background: #D1FAE5; color: #065F46; }
+    .meta-tag.type { background: #DBEAFE; color: var(--blue); }
+
+    .job-desc { font-size: 13px; color: var(--gray); line-height: 1.6; margin-bottom: 12px; }
+
+    .job-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .skill-chip { font-size: 11px; background: #EFF6FF; color: var(--blue); padding: 3px 9px; border-radius: 5px; font-weight: 600; }
+
+    .apply-btn {
+      background: var(--blue); color: #fff; border: none;
+      padding: 9px 22px; border-radius: 8px; font-weight: 700;
+      font-size: 13px; cursor: pointer; transition: all 0.2s;
+    }
+    .apply-btn:hover { background: #1440a8; }
+
+    .empty { text-align: center; padding: 60px 20px; color: var(--gray); }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+    .credit { text-align: center; padding: 16px; font-size: 11px; color: var(--gray); }
+    .credit a { color: var(--blue); text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 600px) {
+      .header { padding: 24px 18px; border-radius: 16px 16px 0 0; }
+      .body-area { padding: 18px; border-radius: 0 0 16px 16px; }
+      .header h1 { font-size: 22px; }
+      .job-card { flex-direction: column; }
+      .job-logo { width: 40px; height: 40px; font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <h1>💼 Job Finder</h1>
+      <p>Find your next opportunity — Front-End & Tech roles in India</p>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search job title or company..." oninput="render()"/>
+        <select id="locationFilter" onchange="render()">
+          <option value="">All Locations</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Noida">Noida</option>
+          <option value="Bengaluru">Bengaluru</option>
+          <option value="Remote">Remote</option>
+        </select>
+        <select id="roleFilter" onchange="render()">
+          <option value="">All Roles</option>
+          <option value="Frontend">Frontend</option>
+          <option value="React">React</option>
+          <option value="Fullstack">Fullstack</option>
+          <option value="UI/UX">UI/UX</option>
+        </select>
+        <button class="search-btn" onclick="render()">Search</button>
+      </div>
+    </div>
+
+    <div class="body-area">
+      <div class="results-info">
+        <span id="resultsCount">8 jobs found</span>
+        <div class="tab-row">
+          <button class="tab-btn active" onclick="setTab('all', this)">All Jobs</button>
+          <button class="tab-btn" onclick="setTab('saved', this)">🔖 Saved</button>
+        </div>
+      </div>
+      <div id="jobList"></div>
+    </div>
+  </div>
+  <div class="credit">Built by <a href="https://mshahanwaz786.github.io">Md Shahnawaz</a> — React.js + Tailwind CSS + LocalStorage</div>
+
+  <script>
+    const jobs = [
+      { id: 1, title: "Frontend Developer (Fresher)", company: "Internshala Network", location: "Remote", role: "Frontend", salary: "₹2.5–4.5 LPA", type: "Full-time", emoji: "🌐", color: "#DBEAFE", desc: "Build responsive UIs using HTML, CSS, JavaScript and React. Great for freshers with strong portfolio.", skills: ["HTML", "CSS", "JavaScript", "React"] },
+      { id: 2, title: "ReactJS Developer", company: "Speqto Technologies", location: "Noida", role: "React", salary: "₹2–4 LPA", type: "Full-time", emoji: "⚛️", color: "#D1FAE5", desc: "Develop and maintain React components, integrate REST APIs, and optimize performance.", skills: ["React.js", "JavaScript", "Git"] },
+      { id: 3, title: "Web Developer Trainee", company: "Naukri Network", location: "Delhi", role: "Frontend", salary: "₹1.8–3.6 LPA", type: "Full-time", emoji: "💻", color: "#FEF3C7", desc: "Work on real client websites using HTML, CSS, JS and Bootstrap. Mentorship provided.", skills: ["HTML", "CSS", "Bootstrap"] },
+      { id: 4, title: "UI/UX + Frontend Developer", company: "Digital Agency", location: "Remote", role: "UI/UX", salary: "₹2–3.5 LPA", type: "Full-time", emoji: "🎨", color: "#FCE7F3", desc: "Design clean UI in Figma/Canva and implement using Tailwind CSS. Good for design-minded devs.", skills: ["Figma", "Tailwind CSS", "UI/UX"] },
+      { id: 5, title: "Associate Full Stack Developer", company: "Apnik Digital", location: "Remote", role: "Fullstack", salary: "₹2.5–4 LPA", type: "Full-time", emoji: "🧩", color: "#E0E7FF", desc: "Build frontend with React and learn backend with Node.js. Training provided for freshers.", skills: ["React", "Node.js", "JavaScript"] },
+      { id: 6, title: "Junior Software Developer", company: "Masstech Solutions", location: "Bengaluru", role: "Frontend", salary: "₹2–3 LPA", type: "Full-time", emoji: "🚀", color: "#FFEDD5", desc: "Frontend development using React, JS and Bootstrap. Batch hiring for freshers.", skills: ["React", "Bootstrap", "JavaScript"] },
+      { id: 7, title: "Frontend Engineer Intern", company: "Wellfound Startups", location: "Remote", role: "React", salary: "₹8–15K/month", type: "Internship", emoji: "🌱", color: "#D1FAE5", desc: "Work directly with founders on a live product. GitHub portfolio reviewed.", skills: ["React", "Tailwind CSS", "GitHub"] },
+      { id: 8, title: "JavaScript Developer (Fresher)", company: "Naukri Network", location: "Noida", role: "Frontend", salary: "₹2–3.5 LPA", type: "Full-time", emoji: "⚡", color: "#FEF9C3", desc: "Strong focus on ES6+, DOM manipulation and LocalStorage based projects.", skills: ["JavaScript", "DOM", "ES6+"] },
+    ];
+
+    let saved = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+    let activeTab = 'all';
+
+    function toggleSave(id) {
+      saved = saved.includes(id) ? saved.filter(x => x !== id) : [...saved, id];
+      localStorage.setItem('savedJobs', JSON.stringify(saved));
+      render();
+    }
+
+    function setTab(tab, btn) {
+      activeTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
+
+    function render() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const location = document.getElementById('locationFilter').value;
+      const role = document.getElementById('roleFilter').value;
+
+      let filtered = jobs.filter(j => {
+        const matchSearch = !search || j.title.toLowerCase().includes(search) || j.company.toLowerCase().includes(search);
+        const matchLoc = !location || j.location === location;
+        const matchRole = !role || j.role === role;
+        const matchTab = activeTab === 'all' || saved.includes(j.id);
+        return matchSearch && matchLoc && matchRole && matchTab;
+      });
+
+      document.getElementById('resultsCount').textContent = `${filtered.length} job${filtered.length !== 1 ? 's' : ''} found`;
+
+      const list = document.getElementById('jobList');
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="empty"><div class="empty-icon">${activeTab === 'saved' ? '🔖' : '🔍'}</div><p>${activeTab === 'saved' ? 'No saved jobs yet. Bookmark jobs to see them here!' : 'No jobs match your search.'}</p></div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(j => `
+        <div class="job-card">
+          <div class="job-logo" style="background:${j.color}">${j.emoji}</div>
+          <div class="job-info">
+            <div class="job-title-row">
+              <div>
+                <div class="job-title">${j.title}</div>
+                <div class="job-company">${j.company}</div>
+              </div>
+              <button class="bookmark-btn" onclick="toggleSave(${j.id})">${saved.includes(j.id) ? '🔖' : '🏷️'}</button>
+            </div>
+            <div class="job-meta">
+              <span class="meta-tag">📍 ${j.location}</span>
+              <span class="meta-tag salary">💰 ${j.salary}</span>
+              <span class="meta-tag type">${j.type}</span>
+            </div>
+            <div class="job-desc">${j.desc}</div>
+            <div class="job-skills">${j.skills.map(s => `<span class="skill-chip">${s}</span>`).join('')}</div>
+            <button class="apply-btn">Apply Now →</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    render();
+  </script>
+</body>
+</html>
