@@ -1,6 +1,6 @@
-8# Md Shahnawaz - Front-End Developer
+# Md Shahnawaz - Full Stack Web Developer
 
-Front-End Web Developer skilled in React.js, JavaScript, HTML5, CSS3, and Tailwind CSS.
+Full Stack Web Developer skilled in building complete web applications — from responsive React.js frontends to Node.js/Express REST APIs backed by MongoDB. Experienced across the full development lifecycle including deployment on Render and GitHub Pages.
 
 ## Live Links
 
