@@ -8,6 +8,8 @@ Portfolio: https://mshahanwaz786.github.io
 
 Job Finder App: https://mshahanwaz786.github.io/job-finder.html
 
+Calculator App: https://mshahanwaz786.github.io/calculator.html
+
 Full Stack Todo App: https://mshahanwaz786.github.io/fullstack-todo-app/client/index.html
 
 ## Contact
